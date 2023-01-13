@@ -14,8 +14,8 @@ public class HelloServlet extends HttpServlet {
 
     //'서버를 실행'하면, '웹WAS'가 'HttpServletRequest 객체'와 'HttpServletResponse 객체'를 만들어서 '서버로 던져줌'
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.service(request, response);
+    protected void service(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         System.out.println("HelloServlet.service"); //'단축키 soutm'
         System.out.println("request = " + request); //'단축키 soutv'
