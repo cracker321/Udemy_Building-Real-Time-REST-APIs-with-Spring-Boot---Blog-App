@@ -1,0 +1,31 @@
+package jpabook.jpashop.domain;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Setter
+@Entity
+public class Member {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID") //'테이블 MEMBER의 PK 컬럼명'은 'MEMBER_ID'이기 떄문에,
+                                //여기 자바 객체에서도 반드시 '컬럼 id'가 아니라, '컬럼 MEMBER_ID'와 매핑시켜야함!
+                                //대소문자는 상관없음. "member_id"로 해도 상관없음.
+    private Long id;
+
+    private String name; //'회원명'
+
+    @Embedded //'Address 객체의 타입'으로 'JPA의 내장 타입을 사용했다'라는 뜻.
+              //'클래스 Address'위에 '@Embeddable'을 붙이거나,
+              //여기 '클래스 Member의 필드 address' 위에 '@Embedded'를 붙이거나 둘 중 하나만 해도 된다! 둘 다도 가능.
+    private Address address; //'회원 주소'
+
+    private List<Order> orders = new ArrayList<>();
+}
