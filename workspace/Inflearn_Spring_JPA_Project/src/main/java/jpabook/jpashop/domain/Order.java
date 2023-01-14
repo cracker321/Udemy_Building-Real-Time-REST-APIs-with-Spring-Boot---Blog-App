@@ -9,8 +9,9 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-@Table(name = ORDERS) //'자바 예약어 Order'가 이미 존재하기 때문에, '실제 DB 속 테이블명'을 'Orders'라고 만들어야
-                      //한다! 그리고, 아래 'Order 객체'를 그 '테이블 Orders'와 매핑시켜줘야 한다!
+@Table(name = ORDERS) //'실제 DB의 테이블명은 ORDERS'이기 때문.
+                      //왜 '테이블명을 ORDER'로 안 했냐면, '자바 예약어 Order'가 이미 존재하기 때문에,
+                      //따라서, 아래 'Order 객체'를 그 '실제 DB의 테이블 ORDERS'와 매핑시켜줘야 한다!
 @Entity
 public class Order {
 
@@ -22,9 +23,10 @@ public class Order {
                                //대소문자는 상관없음. "member_id"로 해도 상관없음.
     private Long id;
 
-    private Member member;
+    @ManyToOne
+    private Member member; //'클래스 Member의 필드 id'를 '참조한 필드'
 
-    private Delivery delivery;
+    private Delivery delivery; //'클래스 Delivery의 필드 id'를 '참조한 필드'
 
     private List<OrderItem> orderItems = new ArrayList<>();
 

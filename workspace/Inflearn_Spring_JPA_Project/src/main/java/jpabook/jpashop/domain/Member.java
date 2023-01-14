@@ -27,5 +27,5 @@ public class Member {
               //여기 '클래스 Member의 필드 address' 위에 '@Embedded'를 붙이거나 둘 중 하나만 해도 된다! 둘 다도 가능.
     private Address address; //'회원 주소'
 
-    private List<Order> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>(); //'클래스 Order의 필드 id'를 '참조한 필드'
 }
