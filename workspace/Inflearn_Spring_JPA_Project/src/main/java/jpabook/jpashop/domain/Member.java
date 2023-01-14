@@ -14,7 +14,7 @@ public class Member {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "MEMBER_ID") //'테이블 MEMBER의 PK 컬럼명'은 'MEMBER_ID'이기 떄문에,
                                 //여기 자바 객체에서도 반드시 '컬럼 id'가 아니라, '컬럼 MEMBER_ID'와 매핑시켜야함!
                                 //대소문자는 상관없음. "member_id"로 해도 상관없음.
@@ -27,5 +27,7 @@ public class Member {
               //여기 '클래스 Member의 필드 address' 위에 '@Embedded'를 붙이거나 둘 중 하나만 해도 된다! 둘 다도 가능.
     private Address address; //'회원 주소'
 
+
+    @OneToMany(mappedBy = "member") //'주인인 Order 객체의 필드 member'와 'N:1 양방향 연결(매핑)되어 있다'라는 뜻
     private List<Order> orders = new ArrayList<>(); //'클래스 Order의 필드 id'를 '참조한 필드'
 }
