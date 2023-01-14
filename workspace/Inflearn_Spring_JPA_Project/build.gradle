@@ -36,6 +36,9 @@ dependencies {
 	testImplementation("org.junit.vintage:junit-vintage-engine") {
 		exclude group: "org.hamcrest", module: "hamcrest-core"
 	}
+
+	//'P6Spy' 추가. cf) '개발 단계'에서는 좋긴 한데, 나중에 '배포 이후'까지 고려하면, 성능상의 문제도 고려해봐야 함
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
 }
 
 test {
