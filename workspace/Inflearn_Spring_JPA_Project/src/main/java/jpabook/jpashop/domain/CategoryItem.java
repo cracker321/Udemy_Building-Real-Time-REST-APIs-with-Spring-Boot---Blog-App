@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
 
+import jpabook.jpashop.domain.Item.Item;
+
 import javax.persistence.*;
 
 @Entity
