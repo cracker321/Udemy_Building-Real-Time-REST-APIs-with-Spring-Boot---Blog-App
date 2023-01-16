@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@DiscriminatorColumn(name = "DTYPE")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) //'단일 테이블 전략'
 @Getter
 @Setter
