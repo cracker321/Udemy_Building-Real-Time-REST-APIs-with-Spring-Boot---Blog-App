@@ -30,17 +30,14 @@ public class Order {
                                     //= '주인 테이블(현재 테이블) ORDERS의 FK 컬럼인 MEMBER_ID'
     private Member member; //'클래스 Member의 필드 id'를 '참조한 필드'
 
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     @OneToOne
     @JoinColumn(name = "DELIEVERY_ID") //'주인이 아닌 테이블 DELIEVERY의 PK 컬럼인 DELIVERY_ID'
                                        //= '주인 테이블(현재 테이블) ORDERS의 FK 컬럼인 DELIVERY_ID'
     private Delivery delivery; //'클래스 Delivery의 필드 id'를 '참조한 필드'
-
-    /*
-
-    private List<OrderItem> orderItems = new ArrayList<>();
-     */
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate; //
 

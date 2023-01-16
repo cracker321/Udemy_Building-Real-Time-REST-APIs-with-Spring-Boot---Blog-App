@@ -19,7 +19,7 @@ public class Delivery {
     @OneToOne(mappedBy = "delivery")
     private Order order;
 
-    @Embedded //'Address 객체의 타입'으로 'JPA의 내장 타입(임베디드 타입)을 사용했다'라는 뜻.
+    @Embedded //'Address 객체 타입'으로 'JPA의 내장 타입(임베디드 타입)을 사용했다'라는 뜻.
               //'저기 클래스 Address'위에 '@Embeddable'을 붙이거나,
               //'여기 클래스 Delivery의 필드 address' 위에 '@Embedded'를 붙이거나
               // 둘 중 하나만 붙여도 되고, 둘 다 붙여도 된다!

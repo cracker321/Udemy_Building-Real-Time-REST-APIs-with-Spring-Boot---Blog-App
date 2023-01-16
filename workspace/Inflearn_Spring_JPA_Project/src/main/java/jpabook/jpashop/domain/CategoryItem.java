@@ -10,6 +10,7 @@ public class CategoryItem {
 
     @Id
     @GeneratedValue
+    @Column(name = "CATEGORYITEM_ID")
     private Long id;
 
     @ManyToOne
