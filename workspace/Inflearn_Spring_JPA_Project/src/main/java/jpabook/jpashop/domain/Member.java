@@ -29,5 +29,7 @@ public class Member {
 
 
     @OneToMany(mappedBy = "member") //'주인인 Order 객체의 필드 member'와 'N:1 양방향 연결(매핑)되어 있다'라는 뜻
+                                    //현재 'Member 객체의 필드 orders'는 반대편 주인 객체 Order'와 매핑되어 있는
+                                    //거울일 뿐이다 라는 뜻!
     private List<Order> orders = new ArrayList<>(); //'클래스 Order의 필드 id'를 '참조한 필드'
 }

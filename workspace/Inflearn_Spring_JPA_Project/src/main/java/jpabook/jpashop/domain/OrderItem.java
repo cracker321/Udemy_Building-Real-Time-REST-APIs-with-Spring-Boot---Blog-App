@@ -13,7 +13,9 @@ public class OrderItem {
 
     @Id
     @GeneratedValue
+    @Column(name = "ORDER_ITEM_ID")
     private Long id;
+
 
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
@@ -23,7 +25,7 @@ public class OrderItem {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    private Integer orderPrice;
+    private int orderPrice; //고객이 주문하는 당시의 가격
 
-    private Integer count;
+    private int count; //주문 수량
 }

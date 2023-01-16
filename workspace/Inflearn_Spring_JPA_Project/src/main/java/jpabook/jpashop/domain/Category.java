@@ -1,10 +1,13 @@
 package jpabook.jpashop.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Category {
 
     @Id
@@ -13,9 +16,12 @@ public class Category {
 
     private String name;
 
-    private List<Item> items = new ArrayList<>();
+    @OneToMany(mappedBy = "category")
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
     private Category parent;
 
     private List<Child> child = new ArrayList<>();
+
+
 }
