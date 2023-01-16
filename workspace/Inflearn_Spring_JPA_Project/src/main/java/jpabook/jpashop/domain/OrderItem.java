@@ -17,7 +17,6 @@ public class OrderItem {
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
-
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;
