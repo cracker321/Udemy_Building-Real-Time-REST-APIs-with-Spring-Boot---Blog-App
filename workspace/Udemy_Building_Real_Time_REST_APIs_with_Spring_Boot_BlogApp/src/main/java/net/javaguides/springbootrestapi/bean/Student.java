@@ -1,19 +1,19 @@
 package net.javaguides.springbootrestapi.bean;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Entity
+@Setter
 public class Student {
+
 
     private int id;
     private String firstName;
