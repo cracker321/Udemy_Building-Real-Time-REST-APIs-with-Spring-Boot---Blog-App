@@ -131,9 +131,13 @@ public class StudentController {
     //[ '23. Spring Boot POST REST API - @PostMapping and @RequestBody'강 ]
     //< '@PostMapping'과 '@RequestBody' >
     //cf) 'GET 요청(검색 등)'이 아니기 때문에, '@RequestParam'이 아니라, '@RequestBody'이다!
-    //
-    @PostMapping("/")
-    public Student createStudent(Student student){
+    //- '@RequestBody': '클라이언트가 전송해준 JSON형식 데이터의 HTTP 바디'를 '자바 객체'로 '변환시켜주는' 역할.
+    //                  'HttpMessageConverter 타입의 메시지 변환기'를 통해 이렇게 작동하게 됨
+    //- '@ResponseBody': '서버가 응답해준 자바 객체'를 'JSON 형식 데이터의 HTTP 바디'로 '변환시켜주는' 역할.
+
+    //- '@RequestBody'와 '@RequestParam'의 차이:
+    @PostMapping("/students/create")
+    public Student createStudent(@RequestBody Student student){
 
         System.out.println(student.getId());
         System.out.println(student.getFirstName());
