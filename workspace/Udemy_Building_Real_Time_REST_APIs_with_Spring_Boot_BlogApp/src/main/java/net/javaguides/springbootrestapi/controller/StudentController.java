@@ -4,6 +4,7 @@ package net.javaguides.springbootrestapi.controller;
 import net.javaguides.springbootrestapi.bean.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class StudentController {
 //===============================================================================================================
 
 
+    //< '@PathVariable()' >
     @GetMapping("/student/{id}/{first-name}/{last-name}") //- 'URI 템플릿 variable'
                                                              //- '{first-name}': 'URL 변수'가 '두 단어 이상일 때',
                                                              //                  이처럼 '하이픈(-)'으로 연결해서 표시한다!
@@ -65,13 +67,30 @@ public class StudentController {
         return new Student(studentId, firstName, lastName);
         //- 'firstName'과 'lastName'은 어쨌든 '변수'이기 때문에 이 'Student 객체' 안에 "firstName'과 "lastName"으로
         //  적는 것이 아니라, '변수 그대로' 'firstName'과 'lastName'으로 적는다!
-
+        //- 'Student 객체'는 '클래스 Student'가 '외부 클래스'에서 사용할 수 있도록, 'public'으로 해뒀기 때문에
+        //  여기서 사용 가능한 것이다!
+        //- 이렇게 'return new Student(studentId, firstName, lastName)' 처럼 안 하고,
+        //  Student student = new Student(studentId, firstName, lastName);
+        //
+        //     return student;
+        //  로 해도 어차피 매한가지 같다! 당연함...
 
     }
 
 
 //===============================================================================================================
 
+
+    //[ 'Spring Boot REST API with Request Param - @RequestParam'강 ]
+    //< '@RequestParam' >
+    //- 'http://localhost:8080/students?id=1' 과 같은 '쿼리 파라미터'를 handle 하기 위함
+
+    public Student studentRequestVariable(@RequestParam Long id){
+
+
+
+        return null;
+    }
 
 
 
