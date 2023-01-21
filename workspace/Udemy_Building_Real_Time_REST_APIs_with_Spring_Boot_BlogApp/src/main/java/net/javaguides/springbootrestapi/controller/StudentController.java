@@ -2,6 +2,7 @@ package net.javaguides.springbootrestapi.controller;
 
 
 import net.javaguides.springbootrestapi.bean.Student;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class StudentController {
 //===============================================================================================================
 
 
-    //[ 'Spring Boot REST API with Request Param - @RequestParam'강 ]
+    //[ 22. 'Spring Boot REST API with Request Param - @RequestParam'강 ]
     //< '@RequestParam'. 매개변수 1개일 때 + 'GET 요청(동적 데이터 조회(검색 등) 등)'일 때 >
     //- e.g) 사용자가 '주소창'에
     //      'http://localhost:8080/students/queryMessage?id=243'을 입력했을 때,
@@ -136,29 +137,47 @@ public class StudentController {
     //- '@ResponseBody': '서버가 응답해준 자바 객체'를 'JSON 형식 데이터의 HTTP 바디'로 '변환시켜주는' 역할.
 
     //- '@RequestBody'와 '@RequestParam'의 차이:
+
     @PostMapping("/students/create")
+    @ResponseStatus(HttpStatus.CREATED) //'포스트맨'에 '상태코드' 뜨게 하고 싶으면, 이 어노테이션 추가하라!
     public Student createStudent(@RequestBody Student student){
 
-        System.out.println(student.getId());
-        System.out.println(student.getFirstName());
-        System.out.println(student.getLastName());
-
-
+//        아래는 그냥 없어도 됨.
+//        System.out.println(student.getId());
+//        System.out.println(student.getFirstName());
+//        System.out.println(student.getLastName());
 
         return student;
 
+
+        //'클라이언트'의 데이터 전송: '포스트맨'에 아래처럼 '사용자'가 '서버'에 'JSON 형식'으로 데이터를 보내면,
+//        {
+//            "id": 53,
+//            "lastName": "cho",
+//            "gender": "male"
+//        }
+
+
+        //'서버'의 데이터 응답:
+//        {
+//            "id": 53,
+//            "firstName": "null",
+//            "lastName": "cho",
+//            "birthDate": null,
+//            "gender": "male"
+//        }
+
+        //cf) 원래라면, '사용자'가 'Student 객체의 필드(속성)들'인 'id', 'firstName', 'lastName', 'birthDate', 'gender'를
+        //    '다 포함시켜서' '서버에게' 데이터를 전송해주는 것이 맞는 것임! 이건 그냥 단지 실험사항임!
+
+
     }
-
-
-
-
-
 
 
 //===============================================================================================================
 
 
-
+    //
 
 
 }
