@@ -2,10 +2,7 @@ package net.javaguides.springbootrestapi.controller;
 
 
 import net.javaguides.springbootrestapi.bean.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +83,7 @@ public class StudentController {
 
 
     //[ 'Spring Boot REST API with Request Param - @RequestParam'강 ]
-    //< '@RequestParam'. 매개변수 1개일 때 >
+    //< '@RequestParam'. 매개변수 1개일 때 + 'GET 요청(동적 데이터 조회(검색 등) 등)'일 때 >
     //- e.g) 사용자가 '주소창'에
     //      'http://localhost:8080/students/queryMessage?id=243'을 입력했을 때,
     //      '서버'가 그 요청을 받아 다시 응답 데이터를 보내주기 위함과 같은 '쿼리 파라미터'를 handle 하기 위함
@@ -108,7 +105,7 @@ public class StudentController {
     
 
 
-    //< '@RequestParam'. 매개변수 2개 이상일 때 >
+    //< '@RequestParam'. 매개변수 2개 이상일 때 + 'GET 요청(동적 데이터 조회(검색 등))'일 때 >
     //- e.g) '사용자'가 '주소창'에
     //      'http://localhost:8080/students/queryMessage?id=243&birthDate=1234567&gender=male'을 입력했을 때
     //      (cf: - 1234567L이 아니라, 1234567만 입력해주는 것
@@ -133,7 +130,20 @@ public class StudentController {
 
     //[ '23. Spring Boot POST REST API - @PostMapping and @RequestBody'강 ]
     //< '@PostMapping'과 '@RequestBody' >
+    //cf) 'GET 요청(검색 등)'이 아니기 때문에, '@RequestParam'이 아니라, '@RequestBody'이다!
+    //
+    @PostMapping("/")
+    public Student createStudent(Student student){
 
+        System.out.println(student.getId());
+        System.out.println(student.getFirstName());
+        System.out.println(student.getLastName());
+
+
+
+        return student;
+
+    }
 
 
 
