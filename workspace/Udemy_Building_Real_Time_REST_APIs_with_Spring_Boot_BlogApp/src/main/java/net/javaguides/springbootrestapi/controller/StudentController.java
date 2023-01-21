@@ -49,7 +49,8 @@ public class StudentController {
 
 
     //< '@PathVariable()' >
-
+    //- '사용자'가 '주소창'에 직접 'http://localhost:8080/student/36/yujong/cho' 이렇게 입력하면
+    //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
     @GetMapping("/student/{id}/{first-name}/{last-name}") //- 'URI 템플릿 variable'
                                                              //- '{first-name}': 'URL 변수'가 '두 단어 이상일 때',
                                                              //                  이처럼 '하이픈(-)'으로 연결해서 표시한다!
@@ -88,7 +89,7 @@ public class StudentController {
     //< '@RequestParam'. 매개변수 1개일 때 >
     //- e.g) 사용자가 '주소창'에
     //      'http://localhost:8080/students/queryMessage?id=243'을 입력했을 때,
-    //      서버가 그 요청을 받아 다시 응답 데이터를 보내주기 위함과 같은 '쿼리 파라미터'를 handle 하기 위함
+    //      '서버'가 그 요청을 받아 다시 응답 데이터를 보내주기 위함과 같은 '쿼리 파라미터'를 handle 하기 위함
     //- '쿼리 파라미터': 여기서 '?id=1' 부분이 쿼리 파라미터임.
     //                 주로 '클라이언트의 동적 데이터 전송('검색 요청')'과 '조회 GET' 할 때 '쿼리 파라미터'를 사용한다.
     //
@@ -112,7 +113,7 @@ public class StudentController {
     //      'http://localhost:8080/students/queryMessage?id=243&birthDate=1234567&gender=male'을 입력했을 때
     //      (cf: - 1234567L이 아니라, 1234567만 입력해주는 것
     //           - "male"이 아니라, male 로 입력해준다. )
-    //      그 요청을 받아 다시 응답 데이터를 보내주기 위함
+    //      '서버'가 그 요청을 받아 다시 응답 데이터를 보내주기 위함
     @GetMapping("/students/queryMessages") //'주소창'에는 'http://localhost:8080/students/queryMessage?id=243..'을
                                              //입력해야 정상적으로 데이터 조회가 가능하다.
                                              //'주소창'에 절대로 'http://localhost:8080/students/queryMessage'만
@@ -128,6 +129,21 @@ public class StudentController {
 
 
 //===============================================================================================================
+
+
+    //[ '23. Spring Boot POST REST API - @PostMapping and @RequestBody'강 ]
+    //< '@PostMapping'과 '@RequestBody' >
+
+
+
+
+
+
+
+
+//===============================================================================================================
+
+
 
 
 
