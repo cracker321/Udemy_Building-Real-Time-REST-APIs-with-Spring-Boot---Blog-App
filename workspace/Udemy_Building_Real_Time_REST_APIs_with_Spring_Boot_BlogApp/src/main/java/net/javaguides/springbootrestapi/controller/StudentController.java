@@ -47,17 +47,38 @@ public class StudentController {
 //===============================================================================================================
 
 
-    @GetMapping("/student/{id}") //'URI 템플릿 variable'
-    public Student getgetStudent(@PathVariable("id") Long studentId){ //이렇게 작성하면, 프론트로부터 넘어온 'id'가
-                                                                      //'studentId'를 그대로 '대체해서', 이 안으로
-                                                                      //대신 들어간다. 즉, 'id' = 'studentId'가
-                                                                      //되는 것이다!
+    @GetMapping("/student/{id}/{first-name}/{last-name}") //- 'URI 템플릿 variable'
+                                                             //- '{first-name}': 'URL 변수'가 '두 단어 이상일 때',
+                                                             //                  이처럼 '하이픈(-)'으로 연결해서 표시한다!
+    public Student getgetStudent(@PathVariable("id") Long studentId,
+                                 @PathVariable("first-name") String firstName,
+                                 @PathVariable("last-name") String lastName){
+        //- '@PathVariable("id") Long studentId':
+        //이렇게 작성하면, '클라이언트로부터 URI 통해 넘어온 id'가 'studentId'를 그대로 '대체해서', 이 메소드 안으로 대신 들어간다.
+        //즉, 'id' = 'studentId'가 되는 것이다!
+        //- '@PathVariable("first-name") String firstName:
+        //'클라이언트로부터 URI 통해 넘어온 first-name'이 이제 'firstName'을 그대로 '대체해서', 이 메소드 안으로 대신 들어간다!
+        //즉, 'first-name' = 'firstName'이 되는 것이다!
 
 
 
-        return new Student(studentId, "seonghyun", "kim");
+        return new Student(studentId, firstName, lastName);
+        //- 'firstName'과 'lastName'은 어쨌든 '변수'이기 때문에 이 'Student 객체' 안에 "firstName'과 "lastName"으로
+        //  적는 것이 아니라, '변수 그대로' 'firstName'과 'lastName'으로 적는다!
+
 
     }
+
+
+//===============================================================================================================
+
+
+
+
+
+
+//===============================================================================================================
+
 
 
 }
