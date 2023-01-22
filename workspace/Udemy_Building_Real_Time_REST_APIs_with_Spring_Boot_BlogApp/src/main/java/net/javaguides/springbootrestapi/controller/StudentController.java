@@ -263,17 +263,38 @@ public class StudentController {
     //- '사용자'가 '주소창(or 포스트맨)'에 직접 'http://localhost:8080/students/95/update' 이렇게 입력하면
     //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
     @PutMapping("/students/{mymyId}/update")
-    public Student updateStudent(@RequestBody Student student, //'@PutMapping'은 'update'이기 때문에, 따라서 어찌됐든
-                                                  //'클라이언트'가 '서버'로 '어떤 데이터를 전달해줘야 한다'!!
-                                                  //따라서, '@RequestBody'로 데이터를 전달해줘야 함!
-                                 @PathVariable("mymyId") Long studentId){
+    public Student updateStudent(@RequestBody Student student,
+                                 //- '@PutMapping'은 'update'이기 때문에, 따라서 어찌됐든
+                                 //'클라이언트'가 '서버'로 '어떤 데이터를 전달해줘야 한다'!!
+                                 //따라서, '@RequestBody'로 데이터를 전달해줘야 함!
+                                 //- '클라이언트'가 '서버'로 'Student 객체를 전달해주긴 하는데',
+                                 //- 나중에 '서버'가 '클라이언트'로 다시 되롤려주는 '응답 데이터'는
+                                 //  오직 'return'에 담겨 있는 'Student 객체에 포함되어 있는 속성들'만 되돌려주는 것이다!
+                                 //  (포스트맨으로 테스트하면서 확인해보기!)
+                                 @PathVariable("mymyId") Long studentId)
+                                 //- '주소창(or 포스트맨)'에 직접 'http://localhost:8080/students/95/update'라고
+                                 //입력한다면, '서버'가 다시 보내주는 '응답 JSON 데이터'는
+                                 //  {
+                                 //     "id": 95,
+                                 //     "firstName": null,
+                                 //         ...이하 다 null
+                                 //     "gender": "male"
+                                 //  }
+                                 //- 여기서 'studentId'는 이 메소드 안에서 이를 활용해서 아래의 경우에는 응답 데이터에
+                                 //  넣기 위해 임의로 변수를 작성해서 매개변수에 넣은 것이지,
+                                 //  이 자체가 '주소창(or 포스트맨)'에 입력되어 있는 {mymyId}의 실제 값(여기서는 '95')에
+                                 //  전혀 우선하는 것이 아니고, 사용자가 주소창에 입력하는 '95'에 전혀 영향을 끼칠 수 없다!
+    {
+
 
 
 //        System.out.println(student.getFirstName());
 //        System.out.println(student.getLastName());
 
 
-        return new Student(studentId, "male"); //'사용자 생성자1'을 이용하여 객체 생성함
+        return new Student(studentId, "male");
+        //'사용자 생성자1'을 이용하여 객체 생성함.
+        //
     }
 
 
