@@ -268,16 +268,26 @@ public class StudentController {
                                  //'클라이언트'가 '서버'로 '어떤 데이터를 전달해줘야 한다'!!
                                  //따라서, '@RequestBody'로 데이터를 전달해줘야 함!
                                  //- '클라이언트'가 '서버'로 'Student 객체를 전달해주긴 하는데',
-                                 //- 나중에 '서버'가 '클라이언트'로 다시 되롤려주는 '응답 데이터'는
+                                 //- 나중에 '서버'가 '클라이언트'로 다시 되돌려주는 '응답 데이터'는
                                  //  오직 'return'에 담겨 있는 'Student 객체에 포함되어 있는 속성들'만 되돌려주는 것이다!
                                  //  (포스트맨으로 테스트하면서 확인해보기!)
+                                 //- '클라이언트'가 '서버'로 'Student 객체를 전달'해준다는 것은,
+                                 //  '사용자'가 '주소창(또는 포스트맨)'에 아래처럼 JSON 형식으로 작성해서 넘겨줄 수 있다는 것
+                                 //    {
+                                 //        "id": 4170,
+                                 //        "firstName": "yujong",
+                                 //        "lastName": "cho",
+                                 //        "birthDate": 001122,
+                                 //        "gender": "male"
+                                 //    }
                                  @PathVariable("mymyId") Long studentId)
                                  //- '주소창(or 포스트맨)'에 직접 'http://localhost:8080/students/95/update'라고
                                  //입력한다면, '서버'가 다시 보내주는 '응답 JSON 데이터'는
                                  //  {
                                  //     "id": 95,
                                  //     "firstName": null,
-                                 //         ...이하 다 null
+                                 //     "lastName": null,
+                                 //     "birthDate": null,
                                  //     "gender": "male"
                                  //  }
                                  //- 여기서 'studentId'는 이 메소드 안에서 이를 활용해서 아래의 경우에는 응답 데이터에
@@ -294,7 +304,23 @@ public class StudentController {
 
         return new Student(studentId, "male");
         //'사용자 생성자1'을 이용하여 객체 생성함.
-        //
+        //'사용자'가 '주소창(또는 포스트맨)'에서 아래처럼 RequestBody를 보내더라도,
+//        {
+//            "id": 4170,
+//            "firstName": "yujong",
+//            "lastName": "cho",
+//            "birthDate": 001122,
+//            "gender": "male"
+//        }
+
+        //당연히, '서버'가 다시 보내주는 '응답 JSON 데이터'는
+        // {
+        //   "id": 95,
+        //   "firstName": null,
+        //   "lastName": null,
+        //   "birthDate": null,
+        //   "gender": "male"
+        //   }
     }
 
 
