@@ -384,20 +384,33 @@ public class StudentController {
 //===============================================================================================================
 
 
+    //[ '26. Using Spring ResponseEntity to Manipulate the HTTP Response - ResponseEntity'강 ]
     //< ResponseEntity. @GetMapping. '개별 학생 조회' >
     @GetMapping("/ResponseEntityStudent")
     public ResponseEntity<Student> getResponseEntityStudent(Student student){
 
+        student.setFirstName("yujong"); //이 메소드 안에서 '새롭게 최초로 생성한 현재 Student 객체의 속성'으로
+                                        //'이름 yujong', '성별 male'을 추가해줬다!
+        student.setGender("male");
 
-
-
-
+        //return ResponseEntity.ok(student) //이것과 아래는 '완전히 동일'하다!
         return new ResponseEntity<>(student, HttpStatus.OK);
         //- '새로운 ResponseEntity 객체를 생성해줘야', '리턴값 return'에 그 '새로운 ResponseEntity 객체'를 넣어서
         //  사용해주는 것이 가능한 것이다!
         //- '바디', '헤더', '상태코드'
         //- 이 메소드의 매개변수로 'Student 객체'를 던져줬기 때문에 당연히, '리턴값 return'에서 '그 클래스변수 student'를
         //  '바디' 부분에 사용하는 것이 가능하다!
+        //- '사용자'가 '주소창(또는 포스트맨)'에 'http://localhost:8080/ResponseEntityStudent'를 작성하면,
+        //'서버'가 '사용자'에게 다시 응답해주는 'JSON 형식 응답 데이터'는 아래와 같게 됨.
+//        {
+//          "id": null,
+//          "firstName": "yujong",
+//          "lastName": null,
+//          "birthDate": null,
+//          "gender": "male"
+//        }
+//      그리고, 'Headers'에 상태코드가 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
+
     }
 
 
