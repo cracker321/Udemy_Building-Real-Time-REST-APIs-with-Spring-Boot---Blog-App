@@ -389,12 +389,15 @@ public class StudentController {
     @GetMapping("/ResponseEntityStudent")
     public ResponseEntity<Student> getResponseEntityStudent(Student student){
 
-        student.setFirstName("yujong"); //이 메소드 안에서 '새롭게 최초로 생성한 현재 Student 객체의 속성'으로
-                                        //'이름 yujong', '성별 male'을 추가해줬다!
-        student.setGender("male");
+        student.setFirstName("yujong");
+        student.setGender("male"); //이 메소드 안에서 '새롭게 최초로 생성한 현재 Student 객체의 속성'으로
+                                    //'이름 yujong', '성별 male'을 추가해줬다!
 
-        //return ResponseEntity.ok(student) //이것과 아래는 '완전히 동일'하다!
-        return new ResponseEntity<>(student, HttpStatus.OK);
+
+
+        //return new ResponseEntity<>(student, HttpStatus.OK);
+        //return ResponseEntity.ok(student) //이것과 위에는 '완전히 동일'하다!
+                                            //'메소드 ok()의 괄호 안에는 응답 메시지의 body 부분'이 들어가는 것이다!
         //- '새로운 ResponseEntity 객체를 생성해줘야', '리턴값 return'에 그 '새로운 ResponseEntity 객체'를 넣어서
         //  사용해주는 것이 가능한 것이다!
         //- '바디', '헤더', '상태코드'
@@ -409,8 +412,25 @@ public class StudentController {
 //          "birthDate": null,
 //          "gender": "male"
 //        }
-//      그리고, 'Headers'에 상태코드가 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
+//      그리고, 'Headers 탭'에서 '상태코드'가 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
 
+
+
+        //만약, 리턴값을 아래처럼 설정할 경우,
+        return ResponseEntity.ok()
+                .header("yujong-headerName", "yujong-headerValue")
+                .body(student); //'메소드 ok' 자체가 '헤더 이름', '헤더 값', '메시지 바디' 순서의 구성으로 이루어져 있다!
+        //'서버'가 '사용자'에게 다시 응답해주는 'JSON 형식 응답 데이터'는 아래와 같게 됨.
+//        {
+//          "id": null,
+//          "firstName": "yujong",
+//          "lastName": null,
+//          "birthDate": null,
+//          "gender": "male"
+//        }
+//      그리고, 'Headers 탭'에서 '헤더 이름의 Key'가 'yujong-headerName'으로 보내지고,
+//      '헤더 Values'가 'yujong-headerValue'가 되어서 보내진다.
+//      또한, 상태코드'도 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
     }
 
 
