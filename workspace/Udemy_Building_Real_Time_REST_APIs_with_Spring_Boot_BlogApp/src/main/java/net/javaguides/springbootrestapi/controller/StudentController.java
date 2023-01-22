@@ -2,6 +2,7 @@ package net.javaguides.springbootrestapi.controller;
 
 
 import net.javaguides.springbootrestapi.bean.Student;
+import net.javaguides.springbootrestapi.bean.Studentin;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,12 +13,35 @@ import java.util.List;
 public class StudentController {
 
     @GetMapping("/student")
-    public Student getStudent(){
+    public Student getStudent(){ //- 여기 '메소드 getStudent'의 '매개변수'에 'Student student'를 넣어주지 않았기 때문에,
+                                 //아래에서 '새롭게 Student 객체를 생성'해줘야, 그 아래에서 'Student 객체'를 사용할 수 있다!
+                                 //만약, 'public Student getStudent(Student student){..' 이렇게 했었다면,
+                                 //아래에서 'Student student = new Student(...)' 이 과정이 필요 없이,
+                                 //바로 '클래스변수 student'를 사용할 수 있게 된다!!
+        //즉, '메소드 getgetStudent의 매개변수'에 'Student student가 들어오지 않았기에', '당연히 이 메소드 안에서 바로
+        //Student 객체를 사용하는 것은 불가'하고, '메소드 중간에 Student student = new Student()' 처럼
+        //'새롭게 최초로 Student 객체를 생성하여 사용'하든지, 아니면 여기 '리턴값처럼 새롭게 Student 객체를 생성'해서 사용해야 함!
+
+                                 //- 여기 매개변수로 들어갈 수 있는 것은 '엔티티'이다!
+                                 //- 또한 이 '메소드 getStudent'의 '리턴타입(자료형)이 Student 객체 타입'이기에,
+                                 // '리턴값' 역시 'Student 객체'여야 한다!
+                                 //- '엔티티 Student'의 '접근제어자는 public'이기에, '이 프로젝트의 언제 어디서나 다 공유사용
+                                 //  가능하고, 따라서 여기 '클래스 StudentController의 메소드 getStudent'에서도
+                                 //  자유롭게 '메소드의 리턴타입(자료형)으로 엔티티 Student'를 사용하는 것이 가능한 것이다!
 
         Student student = new Student(1L, "Ramesh", "Fadatare"); //'Student 객체'를 1개만 생성
 
-        return student;
-
+        return student; //이 '메소드 getStudent의 리턴타입'이 'Student 객체'이기에, 당연히 여기서도 'Student 객체'를 리턴함.
+                        //'이 메소드의 리턴타입이 Student 객체 타입인 것과 상관 없이', '이 메소드의 매개변수로
+                        //Student student가 들어왔기 때문에', 이 메소드 안에서 '클래스변수 student'를 자유롭게
+                        //사용하는 것이 가능하다!
+                        //즉, ''public Student getStudent()'에서의 'Student''는
+                        //'이 메소드의 리턴타입이 Student 객체라는 것을 강제할 뿐이지', 이 메소드 안에서
+                        //'클래스변수 student'를 사용할 수 있다는 말이 절대 아니다!
+                        //즉, '클래스변수 student'를 사용하려면, 반드시
+                        //1.'이 메소드의 매개변수로 Student student'가 들어오든지,
+                        //2.'이 메소드 안에서 새롭게 최초의 Student 객체를 생성(Student student = new Student())'하여
+                        //   그 '클래스변수 student'를 사용하든지 해야 한다!
     }
 
 
@@ -77,6 +101,11 @@ public class StudentController {
         //     return student;
         //  로 해도 어차피 매한가지 같다! 당연함...
 
+        //- '메소드 getgetStudent의 리턴타입(자료형)이 Student 객체 타입'이기에, 여기서 '리턴값도 당연히 Student 객체'여야 함
+        //- 또한, '메소드 getgetStudent의 매개변수'에 'Student student가 들어오지 않았기에', '당연히 이 메소드 안에서 바로
+        //  Student 객체를 사용하는 것은 불가'하고, '메소드 중간에 Student student = new Student()' 처럼
+        //  '새롭게 최초로 Student 객체를 생성하여 사용'하든지, 아니면 여기 '리턴값처럼 새롭게 Student 객체를 생성'해서 사용해야 함!
+
     }
 
 
@@ -95,13 +124,23 @@ public class StudentController {
                                              //입력해야 정상적으로 데이터 조회가 가능하다.
                                              //'주소창'에 절대 'http://localhost:8080/students/queryMessage'만
                                              // 입력하는 것 아니다!
-    public Student studentRequestVariable(@RequestParam Long id){
+    public Student studentRequestVariable(@RequestParam Long id) {
 
 
-        return new Student(id, 1234567L, "male"); //'RequestParam으로 id만 들어왔기 때문'에, 당연히
-                                                                 //'생년월일'과 '성별'은 '하드코딩'으로 직접 타이핑해야 함
+        return new Student(id, 1234567L, "male");
+        //- 'RequestParam으로 id만 들어왔기 때문'에, 당연히 '생년월일'과 '성별'은 '하드코딩'으로 직접 타이핑해야 함
+        //- '메소드 studentRequestVariable의 리턴타입(자료형)이 Student 객체 타입'이기에, 여기서 '리턴값도 당연히 Student 객체
+        //  여야 함'. 또한, '메소드 studentRequestVariable의 매개변수'에 'Student student'가 들어오지 않았기에, '당연히
+        //  이 메소드 안에서 바로 Student 객체를 사용하는 것이 불가'하고, '메소드 중간에 Student student = new Student()'처럼
+        //  '새롭게 최초로 Student 객체를 생성하여 사용'하든지, 아니면 여기 '리턴값처럼 새롭게 Student 객체를 생성'해서 사용해야 함!
+        //  즉, ''public Student getStudent()'에서의 'Student''는 '이 메소드의 리턴타입이 Student 객체라는 것을 강제할 뿐이지',
+        //  이 메소드 안에서 '클래스변수 student'를 사용할 수 있다는 말이 절대 아니다!
+        //즉, '클래스변수 student'를 사용하려면, 반드시
+        //1.'이 메소드의 매개변수로 Student student'가 들어오든지,
+        //2.'이 메소드 안에서 새롭게 최초의 Student 객체를 생성(Student student = new Student())'하여
+        //   그 '클래스변수 student'를 사용하든지 해야 한다!
+
     }
-
 
     
 
@@ -150,7 +189,16 @@ public class StudentController {
 //        System.out.println(student.getFirstName());
 //        System.out.println(student.getLastName());
 
-        return student;
+        return student; //'이 메소드의 리턴타입이 Student 객체 타입인 것과 상관 없이', '이 메소드의 매개변수로
+                        //Student student가 들어왔기 때문에', 이 메소드 안에서 '클래스변수 student'를 자유롭게
+                        //사용하는 것이 가능하다!
+                        //즉, 'public Student createStudent()'의 'Student'는
+                        //'이 메소드의 리턴타입이 Student 객체라는 것을 강제할 뿐이지', 이 메소드 안에서
+                        //'클래스변수 student'를 사용할 수 있다는 말이 절대 아니다!
+                        //즉, '클래스변수 student'를 사용하려면, 반드시
+                        //1.'이 메소드의 매개변수로 Student student'가 들어오든지,
+                        //2.'이 메소드 안에서 새롭게 최초의 Student 객체를 생성(Student student = new Student())'하여
+                        //   그 '클래스변수 student'를 사용하든지 해야 한다!
 
 
         //'클라이언트'의 데이터 전송: '포스트맨'에 아래처럼 '사용자'가 '서버'에 'JSON 형식'으로 데이터를 보내면,
@@ -186,7 +234,10 @@ public class StudentController {
     public Student updateStudent(@RequestBody String firsttName,
                                  @RequestBody Long birthDate){
 
-       Student student= new Student("yujong", 921028L);
+
+
+//       Student student= new Student("yujong", 921028L);
+//       student.getLastName();
 
 
 
