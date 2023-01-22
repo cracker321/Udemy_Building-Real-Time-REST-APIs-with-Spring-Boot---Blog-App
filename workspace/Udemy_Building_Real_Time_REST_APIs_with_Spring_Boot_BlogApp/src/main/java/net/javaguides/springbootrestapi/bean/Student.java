@@ -42,6 +42,7 @@ public class Student {
     }
 
 
+    //< 사용자 생성자3 >
     public Student(Long id, Long birthDate, String gender){
 
         this.id = id;

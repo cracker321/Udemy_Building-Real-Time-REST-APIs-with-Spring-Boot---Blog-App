@@ -2,7 +2,6 @@ package net.javaguides.springbootrestapi.controller;
 
 
 import net.javaguides.springbootrestapi.bean.Student;
-import net.javaguides.springbootrestapi.bean.Studentin;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -272,9 +271,10 @@ public class StudentController {
                                  //  오직 'return'에 담겨 있는 'Student 객체에 포함되어 있는 속성들'만 되돌려주는 것이다!
                                  //  (포스트맨으로 테스트하면서 확인해보기!)
                                  //- '클라이언트'가 '서버'로 'Student 객체를 전달'해준다는 것은,
-                                 //  '사용자'가 '주소창(또는 포스트맨)'에 아래처럼 JSON 형식으로 작성해서 넘겨줄 수 있다는 것
+                                 //  '사용자'가 '주소창(또는 포스트맨)'에 아래처럼 'Student 객체를 JSON 형식으로 작성'해서
+                                 //  넘겨줄 수 있다는 것
                                  //    {
-                                 //        "id": 4170,
+                                 //        "id": 22444170,
                                  //        "firstName": "yujong",
                                  //        "lastName": "cho",
                                  //        "birthDate": 001122,
@@ -298,29 +298,55 @@ public class StudentController {
 
 
 
-//        System.out.println(student.getFirstName());
-//        System.out.println(student.getLastName());
+//        return student;
 
 
-        return new Student(studentId, "male");
-        //'사용자 생성자1'을 이용하여 객체 생성함.
-        //'사용자'가 '주소창(또는 포스트맨)'에서 아래처럼 RequestBody를 보내더라도,
+//        만약,위에처럼 딱 'return student' 저렇게만 쓴다면, 'JSON 형식 응답 데이터'에 이 출력값을 보여줌.
+//        즉, 아래처럼 'RequestBody'에
+        //  '사용자'가 '주소창(또는 포스트맨)'에 'http://localhost:8080/students/95/update' 작성하고,
+        //  포스트맨에서 '바디' 부분에 아래처럼 'Student 객체를 JSON 형식으로 작성'해서 '서버'에게 넘겨준다면,
+        //    {
+        //        "id": 22444170,
+        //        "firstName": "yujong",
+        //        "gender": "male"
+        //    }
+
+        //'서버'가 '사용자'에게 다시 응답해주는 'JSON 형식 응답 데이터'는 아래와 같게 됨.
 //        {
-//            "id": 4170,
+//          "id": 22444170, //'주소창(또는 포스트맨)'에 입력된 '95'는 여기에 전혀 영향을 미칠 수 없다!
+//          "firstName": "yujong",
+//          "lastName": "null",
+//          "birthDate": "null",
+//          "gender": "male"
+//        }
+
+
+
+
+
+        return new Student(studentId, "male"); //'JSON 응답 데이터'로 '95', 'male'을 '클라이언트'에게 보내준다!
+        //'사용자 생성자1'을 이용하여 객체 생성함.
+        //'사용자'가 '주소창(또는 포스트맨)'에 'http://localhost:8080/students/95/update' 작성하고,
+        //'포스트맨'에서 '바디' 부분에 아래처럼 RequestBody를 보내면,
+//        {
+//            "id": 22444170,
 //            "firstName": "yujong",
 //            "lastName": "cho",
 //            "birthDate": 001122,
 //            "gender": "male"
 //        }
 
-        //당연히, '서버'가 다시 보내주는 '응답 JSON 데이터'는
-        // {
-        //   "id": 95,
-        //   "firstName": null,
-        //   "lastName": null,
-        //   "birthDate": null,
-        //   "gender": "male"
-        //   }
+        //당연히, '서버'가 다시 보내주는 '응답 JSON 데이터'는, 오직 '현재 Student 객체의 속성인 'id'와 '성별 gender'만
+        //보내줄 수 밖에 없는 것이다!
+//         {
+//           "id": 95, //'new Student(studentId, "male")' 에서 '현재 Student 객체의 속성 중 id 부분'은
+//                     //URL로부터에 포함되어 전달받은 '실제 값 id'를 담은 '변수 studentId'를 '현재 Student 객체의 속성'에
+//                     //넣었기 때문에,  당연히, '주소창(또는 포스트맨)'에 입력되어 있는 'id값'이 리턴되는 것일 뿐이다!
+//           "firstName": null,
+//           "lastName": null,
+//           "birthDate": null,
+//           "gender": "male"
+//           }
     }
 
 
