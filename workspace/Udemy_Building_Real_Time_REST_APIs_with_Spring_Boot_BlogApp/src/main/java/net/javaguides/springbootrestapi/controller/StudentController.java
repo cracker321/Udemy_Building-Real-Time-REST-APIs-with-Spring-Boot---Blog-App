@@ -83,18 +83,21 @@ public class StudentController {
         //< @PathVariable >
         //- 'yujongId', 'yujong-first-name', 'yujong-last-name':
         // '클라이언트가 URI 속에 넣어서 '3개의 {} 안에' 넣어 전달한 데이터 실제 값 그 자체인 'yujongId', 'yujong-first-name',
-        //  'yujong-last-name' 그 자체를, '컨트롤러'가 임의로 '변수 devId', '변수 devFirstName', '변수 devLastName'을 만든 후,
-        //  그 '3개의 {} 안에 넣어 전달된 데이터 실제 값'을 위 '각각 3개의 변수 안에' 넣어서
-        //  그것을 이 아래 메소드에 넣은 후,
-        //  그것을 'Student 객체의 추가 속성'으로 넣은 것이다!
+        //  'yujong-last-name' 그 자체를, '서버인 내가 임의로' '변수 devId', '변수 devFirstName', '변수 devLastName'을
+        //  만들어서 그 데이터들을 받은 후(즉, 이 변수들은 그 데이터들을 받을 목적으로 내가 임의로 만든 변수임),
+        //  그 '3개의 {} 안에 넣어 전달된 데이터 실제 값'을 위 '각각 3개의 변수 안에' 넣어서 그것을 이 아래 메소드에 넣은 후,
+        //  사용하는 것이다.
+        //  즉, '클라이언트로부터 넘어온 데이터 실제 값들'을 '내가 만든 임의의 변수들에 넣어 받은 후',
+        //  'Student 객체의 추가 속성'으로 넣은 것이다!
         //  즉, 이 '클라이언트가 URI에 넣어서 전달하고자 하는 실제 값'을 컨트롤러가 '임의로 변수를 만들어서',
         //   그 데이터 실제 값을 받게 되는 것이다!
         //https://velog.io/@dmchoi224/Rest-API-RequestParam-%EA%B3%BC-PathVariable
 
-        //- '@PathVariable("id") Long studentId':
-        //이렇게 작성하면, '클라이언트가 URI속에 넣어서 전달한 {} 속에 있는 데이터'를 '컨트롤러'가 '변수 id'로 지정한 후,
-        //이를 'studentId'라고 다시 그대로 '대체해서', 이 메소드 안으로 대신 들어가서 역할한다.
-        //즉, 'id' = 'studentId'가 되는 것이다!
+        //- '@PathVariable("yujongId") Long studentId':
+        //이렇게 작성하면, '클라이언트가 URI속에 넣어서 전달한 {} 속에 있는 데이터 실제 값인 yujongId'를
+        // '컨트롤러'가 '변수 studentId'룰 만들어서, 그 '데이터 실제 값 yujongId'를 '내가 만든 변수 studentId에 담아서',
+        //이이 메소드 안으로 대신 들어가서 사용하는 것이다!
+
         //- '@PathVariable("first-name") String firstName:
         //'클라이언트로부터 URI 통해 넘어온 first-name'이 이제 'firstName'을 그대로 '대체해서', 이 메소드 안으로 대신 들어간다!
         //즉, 'first-name' = 'firstName'이 되는 것이다!
@@ -167,12 +170,20 @@ public class StudentController {
                                              //입력해야 정상적으로 데이터 조회가 가능하다.
                                              //'주소창'에 절대로 'http://localhost:8080/students/queryMessage'만
                                              //입력하는 것 아니다!!
-    public Student studentRequestVariables(@RequestParam Long id,
-                                           @RequestParam Long birthDate,
-                                           @RequestParam String gender){
+
+    public Student studentRequestVariables(@RequestParam Long devdevId,
+                                           @RequestParam Long devdevBirthDate,
+                                           @RequestParam String devdevGender){
+        //@RequestParam Long devdevId = @RequestParam("id") Long devdevId
+        //@RequestParam Long devdevBirthDate = @RequestParam("birthDate") Long devdevBirthDate
+        //@RequestParam Long devdevGender = @RequestParam("gender") Long devdevGender
+        //즉, '@RequestParam()'의 '괄호 ()' 안에는, '클라이언트가 URI 속에 함께 넣어 보낸 데이터 실제 값(id, birthDate,
+        //gender)'가 담겨져 있는 것이고,
+        //'서버'에서는 그 '데이터 실제 값들'을, 각각 '서버 내가 임의로 만든 변수'인 '변수 devdevId', '변수 devdevBirthDate',
+        //'변수 devdevGender'에 담은 후, 그것들을 이 메소드 안에 넣어 활용하는 것이다!
 
 
-        return new Student(id, birthDate, gender);
+        return new Student(devdevId, devdevBirthDate, devdevGender);
 
     }
 
@@ -246,9 +257,9 @@ public class StudentController {
     //< @PutMapping >
     //- '사용자'가 '주소창(or 포스트맨)'에 직접 'http://localhost:8080/students/95/update' 이렇게 입력하면
     //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
-    @PutMapping("/students/{id}/update")
+    @PutMapping("/students/{mymyId}/update")
     public Student updateStudent(Student student,
-                                 @PathVariable("id") Long studentId){
+                                 @PathVariable("mymyId") Long studentId){
 
 
         System.out.println(student.getFirstName());
