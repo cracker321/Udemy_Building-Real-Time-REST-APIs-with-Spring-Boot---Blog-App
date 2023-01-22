@@ -23,6 +23,16 @@ public class Student {
 
 
 
+
+    //< 사용자 생성자1 >
+    public Student(Long id, String gender){
+
+        this.id = id;
+        this.gender = gender;
+    }
+
+
+    //< 사용자 생성자2 >
     public Student(Long id, String firstName, String lastName){ //생성자 오버로딩
 
         this.id = id;
@@ -51,9 +61,5 @@ public class Student {
 
 
 
-    public Student(String firstName, Long birthDate){
-
-
-    }
 
 }

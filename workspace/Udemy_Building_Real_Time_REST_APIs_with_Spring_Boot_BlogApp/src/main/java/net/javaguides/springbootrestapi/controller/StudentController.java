@@ -71,6 +71,10 @@ public class StudentController {
 
 
     //< '@PathVariable()' >
+
+    //- REST API는 '클라이언트'와 '서버'간 소통을 'HTTP 통신'에 전적으로 의존하기 때문에,
+    //  클라이언트가 보내는 데이터를 받으려면 이렇게 HTTP 통신을 활용하여 받아야 하는 것이다!
+
     //- '사용자'가 '주소창(or 포스트맨)'에 직접 'http://localhost:8080/student/36/yujong/cho' 이렇게 입력하면
     //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
     @GetMapping("/student/{yujongId}/{yujong-first-name}/{yujong-last-name}")
@@ -198,6 +202,7 @@ public class StudentController {
     //https://cheershennah.tistory.com/179
     //- '@RequestBody': '클라이언트가 전송해준 JSON형식 데이터의 HTTP 바디'를 '자바 객체'로 '변환시켜주는' 역할.
     //                  'HttpMessageConverter 타입의 메시지 변환기'를 통해 이렇게 작동하게 됨
+    //                  즉, '서버'가 'HTTP 요청 바디'로부터 'JSON 형식의 데이터'를 '추출해내는 것'이다!
     //- '@ResponseBody': '서버가 응답해준 자바 객체'를 'JSON 형식 데이터의 HTTP 바디'로 '변환시켜주는' 역할.
     //- '@RequestBody'와 '@RequestParam'의 차이:
     //https://velog.io/@min-zi/Spring-RequestBody-vs-RequestParam-%EC%B0%A8%EC%9D%B4
@@ -258,15 +263,17 @@ public class StudentController {
     //- '사용자'가 '주소창(or 포스트맨)'에 직접 'http://localhost:8080/students/95/update' 이렇게 입력하면
     //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
     @PutMapping("/students/{mymyId}/update")
-    public Student updateStudent(Student student,
+    public Student updateStudent(@RequestBody Student student, //'@PutMapping'은 'update'이기 때문에, 따라서 어찌됐든
+                                                  //'클라이언트'가 '서버'로 '어떤 데이터를 전달해줘야 한다'!!
+                                                  //따라서, '@RequestBody'로 데이터를 전달해줘야 함!
                                  @PathVariable("mymyId") Long studentId){
 
 
-        System.out.println(student.getFirstName());
-        System.out.println(student.getLastName());
+//        System.out.println(student.getFirstName());
+//        System.out.println(student.getLastName());
 
 
-        return student;
+        return new Student(studentId, "male"); //'사용자 생성자1'을 이용하여 객체 생성함
     }
 
 
