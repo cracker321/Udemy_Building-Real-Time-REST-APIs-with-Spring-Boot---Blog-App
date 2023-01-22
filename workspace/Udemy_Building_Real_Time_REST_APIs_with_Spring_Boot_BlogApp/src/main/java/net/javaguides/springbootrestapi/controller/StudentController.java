@@ -71,18 +71,29 @@ public class StudentController {
 
 
     //< '@PathVariable()' >
-    //- '사용자'가 '주소창'에 직접 'http://localhost:8080/student/36/yujong/cho' 이렇게 입력하면
+    //- '사용자'가 '주소창(or 포스트맨)'에 직접 'http://localhost:8080/student/36/yujong/cho' 이렇게 입력하면
     //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
-    @GetMapping("/student/{id}/{first-name}/{last-name}") //- 'URI 템플릿 variable'
-                                                             //- '{first-name}': 'URL 변수'가 '두 단어 이상일 때',
-                                                             //                  이처럼 '하이픈(-)'으로 연결해서 표시한다!
+    @GetMapping("/student/{yujongId}/{yujong-first-name}/{yujong-last-name}")
+    //- '{yujong-first-name}': 'URL 변수'가 '두 단어 이상일 때', 이처럼 '하이픈(-)'으로 연결해서 표시한다!
 
     //'Student 객체'를 다루고 있기 때문에, 'public Student getStudent()' 이러는 것임!
-    public Student getgetStudent(@PathVariable("id") Long studentId,
-                                 @PathVariable("first-name") String firstName,
-                                 @PathVariable("last-name") String lastName){
+    public Student getgetStudent(@PathVariable("yujongId") Long devId,
+                                 @PathVariable("yujong-first-name") String devFirstName,
+                                 @PathVariable("yujong-last-name") String devLastName){
+        //< @PathVariable >
+        //- 'yujongId', 'yujong-first-name', 'yujong-last-name':
+        // '클라이언트가 URI 속에 넣어서 '3개의 {} 안에' 넣어 전달한 데이터 실제 값 그 자체인 'yujongId', 'yujong-first-name',
+        //  'yujong-last-name' 그 자체를, '컨트롤러'가 임의로 '변수 devId', '변수 devFirstName', '변수 devLastName'을 만든 후,
+        //  그 '3개의 {} 안에 넣어 전달된 데이터 실제 값'을 위 '각각 3개의 변수 안에' 넣어서
+        //  그것을 이 아래 메소드에 넣은 후,
+        //  그것을 'Student 객체의 추가 속성'으로 넣은 것이다!
+        //  즉, 이 '클라이언트가 URI에 넣어서 전달하고자 하는 실제 값'을 컨트롤러가 '임의로 변수를 만들어서',
+        //   그 데이터 실제 값을 받게 되는 것이다!
+        //https://velog.io/@dmchoi224/Rest-API-RequestParam-%EA%B3%BC-PathVariable
+
         //- '@PathVariable("id") Long studentId':
-        //이렇게 작성하면, '클라이언트로부터 URI 통해 넘어온 id'가 'studentId'를 그대로 '대체해서', 이 메소드 안으로 대신 들어간다.
+        //이렇게 작성하면, '클라이언트가 URI속에 넣어서 전달한 {} 속에 있는 데이터'를 '컨트롤러'가 '변수 id'로 지정한 후,
+        //이를 'studentId'라고 다시 그대로 '대체해서', 이 메소드 안으로 대신 들어가서 역할한다.
         //즉, 'id' = 'studentId'가 되는 것이다!
         //- '@PathVariable("first-name") String firstName:
         //'클라이언트로부터 URI 통해 넘어온 first-name'이 이제 'firstName'을 그대로 '대체해서', 이 메소드 안으로 대신 들어간다!
@@ -90,13 +101,13 @@ public class StudentController {
 
 
 
-        return new Student(studentId, firstName, lastName);
+        return new Student(devId, devFirstName, devLastName);
         //- 'firstName'과 'lastName'은 어쨌든 '변수'이기 때문에 이 'Student 객체' 안에 "firstName'과 "lastName"으로
         //  적는 것이 아니라, '변수 그대로' 'firstName'과 'lastName'으로 적는다!
         //- 'Student 객체'는 '클래스 Student'가 '외부 클래스'에서 사용할 수 있도록, 'public'으로 해뒀기 때문에
         //  여기서 사용 가능한 것이다!
-        //- 이렇게 'return new Student(studentId, firstName, lastName)' 처럼 안 하고,
-        //  Student student = new Student(studentId, firstName, lastName);
+        //- 이렇게 'return new Student(devId, devFirstName, devLastName)' 처럼 안 하고,
+        //  Student student = new Student(devId, devFirstName, devLastName);
         //
         //     return student;
         //  로 해도 어차피 매한가지 같다! 당연함...
@@ -114,21 +125,22 @@ public class StudentController {
 
     //[ 22. 'Spring Boot REST API with Request Param - @RequestParam'강 ]
     //< '@RequestParam'. 매개변수 1개일 때 + 'GET 요청(동적 데이터 조회(검색 등) 등)'일 때 >
-    //- e.g) 사용자가 '주소창'에
-    //      'http://localhost:8080/students/queryMessage?id=243'을 입력했을 때,
+    //- e.g) 사용자가 '주소창(or 포스트맨)'에
+    //      'http://localhost:8080/students/queryMessage?yujongId=243'을 입력했을 때,
     //      '서버'가 그 요청을 받아 다시 응답 데이터를 보내주기 위함과 같은 '쿼리 파라미터'를 handle 하기 위함
     //- '쿼리 파라미터': 여기서 '?id=1' 부분이 쿼리 파라미터임.
     //                 주로 '클라이언트의 동적 데이터 전송('검색 요청')'과 '조회 GET' 할 때 '쿼리 파라미터'를 사용한다.
     //
-    @GetMapping("/students/queryMessage") //'주소창'에는 'http://localhost:8080/students/queryMessage?id=243'을
-                                             //입력해야 정상적으로 데이터 조회가 가능하다.
-                                             //'주소창'에 절대 'http://localhost:8080/students/queryMessage'만
-                                             // 입력하는 것 아니다!
-    public Student studentRequestVariable(@RequestParam Long id) {
+    @GetMapping("/students/queryMessage")
 
 
-        return new Student(id, 1234567L, "male");
-        //- 'RequestParam으로 id만 들어왔기 때문'에, 당연히 '생년월일'과 '성별'은 '하드코딩'으로 직접 타이핑해야 함
+    //'주소창'에는 'http://localhost:8080/students/queryMessage?yujongId=243'을 입력해야 정상적으로 데이터 조회가 가능하다.
+    //'주소창'에 절대 'http://localhost:8080/students/queryMessage'만 입력하는 것 아니다!
+    public Student studentRequestVariable(@RequestParam("yujongId") Long myId) {
+
+
+        return new Student(myId, 1234567L, "male");
+        //- 'RequestParam으로 yujongId만 들어왔기 때문'에, 당연히 '생년월일'과 '성별'은 '하드코딩'으로 직접 타이핑해야 함
         //- '메소드 studentRequestVariable의 리턴타입(자료형)이 Student 객체 타입'이기에, 여기서 '리턴값도 당연히 Student 객체
         //  여야 함'. 또한, '메소드 studentRequestVariable의 매개변수'에 'Student student'가 들어오지 않았기에, '당연히
         //  이 메소드 안에서 바로 Student 객체를 사용하는 것이 불가'하고, '메소드 중간에 Student student = new Student()'처럼
@@ -182,7 +194,9 @@ public class StudentController {
 
     @PostMapping("/students/create")
     @ResponseStatus(HttpStatus.CREATED) //'포스트맨'에 '상태코드' 뜨게 하고 싶으면, 이 어노테이션 추가하라!
-    public Student createStudent(@RequestBody Student student){
+    public Student createStudent(@RequestBody Student student){ //'클라이언트'가 'JSON 형식으로 데이터 Student 객체'를
+                                                                //'서버로 전달'하면서, 'Student 객체를 DB에 신규로 저장
+                                                                //해줘!'라고 요청한 것이다!
 
 //        아래는 그냥 없어도 됨.
 //        System.out.println(student.getId());
@@ -230,19 +244,18 @@ public class StudentController {
 
     //[ '24. Spring Boot PUT REST API - @PutMapping and @RequestBody'강 ]
     //< @PutMapping >
-
-    public Student updateStudent(@RequestBody String firsttName,
-                                 @RequestBody Long birthDate){
-
-
-
-//       Student student= new Student("yujong", 921028L);
-//       student.getLastName();
+    //- '사용자'가 '주소창(or 포스트맨)'에 직접 'http://localhost:8080/students/95/update' 이렇게 입력하면
+    //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
+    @PutMapping("/students/{id}/update")
+    public Student updateStudent(Student student,
+                                 @PathVariable("id") Long studentId){
 
 
+        System.out.println(student.getFirstName());
+        System.out.println(student.getLastName());
 
 
-        return null;
+        return student;
     }
 
 
