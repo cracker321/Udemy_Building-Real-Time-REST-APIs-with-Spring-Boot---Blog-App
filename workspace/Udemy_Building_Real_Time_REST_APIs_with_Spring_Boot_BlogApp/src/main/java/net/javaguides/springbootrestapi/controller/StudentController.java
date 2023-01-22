@@ -384,7 +384,7 @@ public class StudentController {
 //===============================================================================================================
 
 
-    //< ResponseEntity. '개별 학생 조회' >
+    //< ResponseEntity. @GetMapping. '개별 학생 조회' >
     @GetMapping("/ResponseEntityStudent")
     public ResponseEntity<Student> getResponseEntityStudent(Student student){
 
@@ -392,10 +392,12 @@ public class StudentController {
 
 
 
-        return new ResponseEntity<>(student, HttpStatus.OK); //- '바디', '헤더', '상태코드'
-                                                             //- 이 메소드의 매개변수로 'Student 객체'를 던져줬기 때문에
-                                                             //  당연히, '리턴값 return'에서 '그 클래스변수 student'를
-                                                             //  사용하는 것이 가능하다!
+        return new ResponseEntity<>(student, HttpStatus.OK);
+        //- '새로운 ResponseEntity 객체를 생성해줘야', '리턴값 return'에 그 '새로운 ResponseEntity 객체'를 넣어서
+        //  사용해주는 것이 가능한 것이다!
+        //- '바디', '헤더', '상태코드'
+        //- 이 메소드의 매개변수로 'Student 객체'를 던져줬기 때문에 당연히, '리턴값 return'에서 '그 클래스변수 student'를
+        //  '바디' 부분에 사용하는 것이 가능하다!
     }
 
 
