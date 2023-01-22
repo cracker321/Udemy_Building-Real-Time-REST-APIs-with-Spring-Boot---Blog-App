@@ -177,7 +177,9 @@ public class StudentController {
 //===============================================================================================================
 
 
-    //
+    //[ '24. Spring Boot PUT REST API - @PutMapping and @RequestBody'강 ]
+    //< @PutMapping >
+
 
 
 }
