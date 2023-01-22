@@ -17,6 +17,8 @@ public class StudentController {
 
 
     //< @GetMapping. '개별 학생 조회' >
+
+
     @GetMapping("/student")
     public Student getStudent(){
         //- 여기 '메소드 getStudent'의 '매개변수'에 'Student student'를 넣어주지 않았기 때문에,
@@ -140,6 +142,8 @@ public class StudentController {
 
     //[ 22. 'Spring Boot REST API with Request Param - @RequestParam'강 ]
     //< '@RequestParam'. 매개변수 1개일 때 + 'GET 요청(동적 데이터 조회(검색 등) 등)'일 때 >
+
+
     //- e.g) 사용자가 '주소창(or 포스트맨)'에
     //      'http://localhost:8080/students/queryMessage?yujongId=243'을 입력했을 때,
     //      '서버'가 그 요청을 받아 다시 응답 데이터를 보내주기 위함과 같은 '쿼리 파라미터'를 handle 하기 위함
@@ -207,6 +211,8 @@ public class StudentController {
 
     //[ '23. Spring Boot POST REST API - @PostMapping and @RequestBody'강 ]
     //< '@PostMapping'과 '@RequestBody' >
+
+
     //cf) 'GET 요청(검색 등)'이 아니기 때문에, '@RequestParam'이 아니라, '@RequestBody'이다!
     //https://wildeveloperetrain.tistory.com/144
     //https://cheershennah.tistory.com/179
@@ -270,6 +276,8 @@ public class StudentController {
 
     //[ '24. Spring Boot PUT REST API - @PutMapping and @RequestBody'강 ]
     //< @PutMapping >
+
+
     //- '사용자'가 '주소창(or 포스트맨)'에 직접 'http://localhost:8080/students/95/update' 이렇게 입력하면
     //  '서버'가 그 요청을 받아 이에 대한 응답 데이터를 전송해줌
     @PutMapping("/students/{mymyId}/update")
@@ -365,9 +373,12 @@ public class StudentController {
 
 
     //< @DeleteMapping >
+
+
     @DeleteMapping("/students/{id}/delete")
     public String deleteStudent(@PathVariable("id") Long studentId){
-        //- '클라이언트'로부터 'id'값을 일단 어찌됐든 전달받았다면, '서버'는 그 '전달받은 id값'을 '변수 studentId'를 활용하여,
+        //- '클라이언트'로부터 'id'값을 일단 어찌됐든 전달받았다면, 그리고, '서버'가 그 '전달받은 id값'을
+        // '변수 studentId'에 받았다면,
         //  '반.드.시 이 메소드 안에서 활용하여야', '포스트맨에서 통신오류가 발생하지 않는다'!!
         //  따라서, 여기서는 그냥 일단 그 간단한 활용 용도로 'System.out.println(studentId)'를 작성해서 사용해본 것임.
         //  이 '출력문 자체'는 어차피 'return 데이터'가 아니기 때문에, '서버'가 '클라이언트'에게 전달해주는 데이터가 아니다!
@@ -386,18 +397,19 @@ public class StudentController {
 
     //[ '26. Using Spring ResponseEntity to Manipulate the HTTP Response - ResponseEntity'강 ]
     //< ResponseEntity. @GetMapping. '개별 학생 조회' >
+
+
     @GetMapping("/ResponseEntityStudent")
-    public ResponseEntity<Student> getResponseEntityStudent(Student student){
+    public ResponseEntity<Student> getStudent(Student student){
 
         student.setFirstName("yujong");
         student.setGender("male"); //이 메소드 안에서 '새롭게 최초로 생성한 현재 Student 객체의 속성'으로
                                     //'이름 yujong', '성별 male'을 추가해줬다!
 
 
-
+        //1.< ResponseEntity의 return 버전1 >
         //return new ResponseEntity<>(student, HttpStatus.OK);
-        //return ResponseEntity.ok(student) //이것과 위에는 '완전히 동일'하다!
-                                            //'메소드 ok()의 괄호 안에는 응답 메시지의 body 부분'이 들어가는 것이다!
+
         //- '새로운 ResponseEntity 객체를 생성해줘야', '리턴값 return'에 그 '새로운 ResponseEntity 객체'를 넣어서
         //  사용해주는 것이 가능한 것이다!
         //- '바디', '헤더', '상태코드'
@@ -415,7 +427,12 @@ public class StudentController {
 //      그리고, 'Headers 탭'에서 '상태코드'가 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
 
 
+        //2.< ResponseEntity의 return 버전2 >
+        //return ResponseEntity.ok(student) //이것과 'return 버전1'은 '완전히 동일'하다!
+                                            //'메소드 ok()의 괄호 안에는 응답 메시지의 body 부분'이 들어가는 것이다!
 
+
+        //3.< ResponseEntity의 return 버전3 >
         //만약, 리턴값을 아래처럼 설정할 경우,
         return ResponseEntity.ok()
                 .header("yujong-headerName", "yujong-headerValue")
@@ -428,19 +445,94 @@ public class StudentController {
 //          "birthDate": null,
 //          "gender": "male"
 //        }
-//      그리고, 'Headers 탭'에서 '헤더 이름의 Key'가 'yujong-headerName'으로 보내지고,
-//      '헤더 Values'가 'yujong-headerValue'가 되어서 보내진다.
+//      그리고, 'Headers 탭'에서 '헤더 이름의 Key'가 'yujong-headerName'이 되고,
+//      '헤더 Values'가 'yujong-headerValue'가 되어서 '클라이언트에게' 보내진다.
 //      또한, 상태코드'도 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
     }
 
 
+//===============================================================================================================
+
+
+    //[ '26. Using Spring ResponseEntity to Manipulate the HTTP Response - ResponseEntity'강 ]
+    //< ResponseEntity. @GetMapping. 전체 학생 조회 >
+    @GetMapping("/ResponseEntityStudents")
+    public ResponseEntity<List<Student>> getStudents(Student student){
+
+        List<Student> students = new ArrayList<>(); //'List'로 만들 때는, 이렇게 'new ArrayList<>()' 해주는 것이 관례!
+
+        students.add(student);
+        students.add(student); //'List'이기 때문에, 반드시 이렇게 'Student 객체를 여러 개 넣어줘야 한다'!!
+
+
+
+        //1.< ResponseEntity의 return 버전1 >
+        //return new ResponseEntity<>(students, HttpStatus.OK);
+
+
+        //2.< ResponseEntity의 return 버전2 >
+        //return ResponseEntity.ok(students);
+
+
+        //3.< ResponseEntity의 return 버전3 >
+        return ResponseEntity.ok()
+                .header("yujong-new-hearName", "yujong-new-headerValue")
+                .body(students);
+    }
+
 
 //===============================================================================================================
 
 
 
 
+
 //===============================================================================================================
+
+
+    //< ResponseEntity. @PutMapping >
+
+
+    @PutMapping("/ResponseEntityStudents/{mymyId}/update")
+    public ResponseEntity<Student> ResponseEntityUpdateStudent(@RequestBody Student student,
+                                                               @PathVariable("mymyId") Long studentId){
+
+        System.out.println(studentId); //근데 포스트맨에서 왜 에러나지..?
+                                       //이거 원인 찾아보기!
+
+        //< 'ResponseEntity의 return 버전3'을 사용함 >
+        return ResponseEntity.ok()
+                .header("updated-new-headerName", "updated-new-headerValue")
+                .body(student);
+
+    }
+
+
+//===============================================================================================================
+
+
+    //< ResponseEntity. @DeleteMapping >
+    @DeleteMapping("/ResponseEntityStudent/{id}/delete")
+    public ResponseEntity<String> ResponseEntityDeleteStudent(@PathVariable("id") Long studentId){
+
+
+        System.out.println(studentId);
+//        //- '클라이언트'로부터 'id'값을 일단 어찌됐든 전달받았다면, 그리고, '서버'가 그 '전달받은 id값'을
+//        //'변수 studentId'에 받았다면,
+//        //  '반.드.시 이 메소드 안에서 활용하여야', '포스트맨에서 통신오류가 발생하지 않는다'!!
+//        //  따라서, 여기서는 그냥 일단 그 간단한 활용 용도로 'System.out.println(studentId)'를 작성해서 사용해본 것임.
+//        //  이 '출력문 자체'는 어차피 'return 데이터'가 아니기 때문에, '서버'가 '클라이언트'에게 전달해주는 데이터가 아니다!
+//        //  즉, 만약, 애초에 '@PathVariable("id") Long studentId'와 같이 'id값'을 전달받지 않았다면,
+//        //  이 출력문 'System.out.println(studentId)'와 같은 것을 애초에 작성할 필요도 없고, 작성 안 해도 정상적으로 통신된다!
+//
+
+        //< 'ResponseEntity의 return 버전2'를 사용함 >
+        return ResponseEntity.ok("Student deleted successfully");
+    }
+
+
+//===============================================================================================================
+
 
 
 }
