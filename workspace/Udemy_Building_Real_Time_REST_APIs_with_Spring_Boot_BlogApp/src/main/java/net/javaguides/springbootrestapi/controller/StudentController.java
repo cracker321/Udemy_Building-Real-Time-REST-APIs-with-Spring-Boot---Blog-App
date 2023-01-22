@@ -137,7 +137,6 @@ public class StudentController {
     //- '@RequestBody': '클라이언트가 전송해준 JSON형식 데이터의 HTTP 바디'를 '자바 객체'로 '변환시켜주는' 역할.
     //                  'HttpMessageConverter 타입의 메시지 변환기'를 통해 이렇게 작동하게 됨
     //- '@ResponseBody': '서버가 응답해준 자바 객체'를 'JSON 형식 데이터의 HTTP 바디'로 '변환시켜주는' 역할.
-
     //- '@RequestBody'와 '@RequestParam'의 차이:
     //https://velog.io/@min-zi/Spring-RequestBody-vs-RequestParam-%EC%B0%A8%EC%9D%B4
     //https://parkadd.tistory.com/70
@@ -184,7 +183,10 @@ public class StudentController {
     //[ '24. Spring Boot PUT REST API - @PutMapping and @RequestBody'강 ]
     //< @PutMapping >
 
-    public Student updateStudent(@R){
+    public Student updateStudent(@RequestBody String firsttName,
+                                 @RequestBody Long birthDate){
+
+       Student student= new Student("yujong", 921028L);
 
 
 
