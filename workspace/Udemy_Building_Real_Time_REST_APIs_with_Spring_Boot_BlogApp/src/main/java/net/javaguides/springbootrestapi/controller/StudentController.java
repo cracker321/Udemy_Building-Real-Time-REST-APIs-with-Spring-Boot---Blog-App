@@ -477,7 +477,8 @@ public class StudentController {
         //3.< ResponseEntity의 return 버전3 >
         return ResponseEntity.ok()
                 .header("yujong-new-hearName", "yujong-new-headerValue")
-                .body(students);
+                .body(students); //'현재 메소드의 리턴타입(자료형)이 List 객체'이기 때문에, 당연히 List 객체인
+                                 //'클래스변수 students'를 리턴하는 것이 맞는 것임!
     }
 
 
@@ -537,7 +538,7 @@ public class StudentController {
     public ResponseEntity<String> ResponseEntityDeleteStudent(@PathVariable("id") Long studentId){
 
 
-        System.out.println(studentId);
+        //System.out.println(studentId);
 //        //- '클라이언트'로부터 'id'값을 일단 어찌됐든 전달받았다면, 그리고, '서버'가 그 '전달받은 id값'을
 //        //'변수 studentId'에 받았다면,
 //        //  '반.드.시 이 메소드 안에서 활용하여야', '포스트맨에서 통신오류가 발생하지 않는다'!!
@@ -549,10 +550,14 @@ public class StudentController {
 
         //< 'ResponseEntity의 return 버전2'를 사용함 >
         return ResponseEntity.ok("Student deleted successfully");
+        //'현재 메소드의 리턴타입(자료형)이 String 객체'이기 때문에, 당연히 String 객체인 "Student deleted successfully'를
+        //리턴하는 것인 맞는 것임!
     }
 
 
 //===============================================================================================================
+
+
 
 
 
