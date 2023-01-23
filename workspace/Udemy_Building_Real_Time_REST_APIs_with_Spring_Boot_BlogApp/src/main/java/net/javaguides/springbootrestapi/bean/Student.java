@@ -20,6 +20,7 @@ public class Student {
     private String lastName;
     private Long birthDate;
     private String gender;
+    private int age;
 
 
 

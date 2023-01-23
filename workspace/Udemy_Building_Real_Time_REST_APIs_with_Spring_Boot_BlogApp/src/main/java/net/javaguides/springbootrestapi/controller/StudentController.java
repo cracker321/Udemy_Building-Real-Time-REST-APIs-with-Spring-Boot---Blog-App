@@ -447,7 +447,7 @@ public class StudentController {
 //        }
 //      그리고, 'Headers 탭'에서 '헤더 이름의 Key'가 'yujong-headerName'이 되고,
 //      '헤더 Values'가 'yujong-headerValue'가 되어서 '클라이언트에게' 보내진다.
-//      또한, 상태코드'도 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
+//      또한, '상태코드'도 이전의 '201 Created'가 아닌 '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
     }
 
 
@@ -496,14 +496,35 @@ public class StudentController {
     @PutMapping("/ResponseEntityStudents/{mymyId}/update")
     public ResponseEntity<Student> ResponseEntityUpdateStudent(@RequestBody Student student,
                                                                @PathVariable("mymyId") Long studentId){
+        //현재 메소드 안에서는 'mymyId(즉, studentId'가 사용되고 있진 않다! 그럼에도 정상작동 되는 것은 맞음!
 
-        System.out.println(studentId); //근데 포스트맨에서 왜 에러나지..?
-                                       //이거 원인 찾아보기!
+
 
         //< 'ResponseEntity의 return 버전3'을 사용함 >
         return ResponseEntity.ok()
                 .header("updated-new-headerName", "updated-new-headerValue")
                 .body(student);
+
+        //'사용자'가 '주소창(또는 포스트맨)'에 'http://localhost:8080/students/67352/update' 작성하고,
+        //'포스트맨'에서 '바디' 부분에 아래처럼 RequestBody를 보내면,
+//        {
+//            "id": 45,
+//            "gender": "male",
+//            "age": 99
+//        }
+
+        //'서버'가 '사용자'에게 다시 응답해주는 'JSON 형식 응답 데이터'는 아래와 같게 됨.
+//        {
+//          "id": 45,
+//          "firstName": null,
+//          "lastName": null,
+//          "birthDate": null,
+//          "gender": "male",
+//          "age": 99
+//        }
+//        그리고, 'Headers 탭'에서 '헤더 이름의 Key'가 'updated-new-headerName'이 되고,
+//        '헤더 Values'가 'updated-new-headerValue'가 되어서 '클라이언트에게' 보내진다.
+//        또한, '상태코드'도 이전의 '201 Created'가 아닌, '200 OK'로 '클라이언트에게' 응답해서 전달해준다!
 
     }
 
